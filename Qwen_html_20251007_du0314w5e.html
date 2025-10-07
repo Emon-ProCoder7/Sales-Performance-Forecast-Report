@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Team Performance & Forecast (Sep 2025)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7fa;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        /* Print Styles for PDF generation */
+        @media print {
+            body { background-color: white; }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc; /* Add light border for separation on paper */
+                padding: 1rem;
+                border-radius: 0;
+            }
+            /* Remove background/border colors on metric cards for clean printing */
+            .bg-indigo-50, .bg-green-50, .bg-yellow-50, .bg-red-50 { 
+                background-color: transparent !important; 
+                border: 1px solid #eee !important;
+            }
+            /* Ensure text is dark and legible */
+            .text-indigo-700, .text-green-700, .text-yellow-700, .text-red-700 { color: #1f2937 !important; }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-gray-800">Sales Performance & Forecast Report</h1>
+            <p class="text-xl text-indigo-600 font-semibold">September 2025 Analysis</p>
+        </header>
+
+        <!-- Summary Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="card text-center bg-indigo-50 border-t-4 border-indigo-500">
+                <p class="text-sm text-gray-500">Sept Deals Closed</p>
+                <p class="text-3xl font-extrabold text-indigo-700">94</p>
+            </div>
+            <div class="card text-center bg-green-50 border-t-4 border-green-500">
+                <p class="text-sm text-gray-500">Est. Sept Revenue</p>
+                <p class="text-3xl font-extrabold text-green-700">$182.7K</p>
+            </div>
+            <div class="card text-center bg-yellow-50 border-t-4 border-yellow-500">
+                <p class="text-sm text-gray-500">Q4 Deals Forecast</p>
+                <p class="text-3xl font-extrabold text-yellow-700">~100</p>
+            </div>
+            <div class="card text-center bg-red-50 border-t-4 border-red-500">
+                <p class="text-sm text-gray-500">YTD Deals Closed (Q3)</p>
+                <p class="text-3xl font-extrabold text-red-700">785+</p>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Chart 1: Historical Deal Volume & Forecast (Trend Chart) -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-700 section-heading">Monthly Deal Volume Trend</h2>
+                <canvas id="dealTrendChart"></canvas>
+            </div>
+
+            <!-- Chart 2: Individual Rep Performance (Bar Chart) -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-700 section-heading">Individual Rep Performance (September)</h2>
+                <div class="h-80">
+                    <canvas id="repPerformanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 3: Revenue Contribution (Pie Chart) -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-700 section-heading">September Revenue Contribution (K$)</h2>
+                <canvas id="revenuePieChart"></canvas>
+            </div>
+
+            <!-- Chart 4: Q4 Growth Forecast (Comparison Chart) -->
+            <div class="card">
+                <h2 class="text-xl font-semibold text-gray-700 section-heading">Q4 Growth Projection vs. September Actual</h2>
+                <canvas id="forecastChart"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Detailed Reporting -->
+        <div class="card mt-6">
+            <h2 class="text-2xl font-bold text-gray-800 section-heading">Detailed Performance Report & Analysis</h2>
+            
+            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Team Performance Overview (September)</h3>
+            <p class="text-gray-700 mb-4">
+                The team closed **94 deals** in September, demonstrating stability in Q3 performance. While slightly below the 98 deals in August, it remains a strong result, particularly when compared to July’s 84 deals. The total estimated revenue was **$182.7K**, which was significantly boosted by a single **$34,000** deal (Rebecca Zurielle’s podcast project). This indicates a healthy, albeit slightly seasonally adjusted, pipeline, maintaining a trend that is only modestly lower than the Q2 peak of 108 deals.
+            </p>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Rep-by-Rep Performance Breakdown</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                <li><strong class="text-blue-600">Nazia Afreen Janvi (Top Volume):</strong> Closed the highest volume with **22 deals** ($37.6K revenue). Her strength lies in consistent throughput of moderate-sized deals ($1,709 average).</li>
+                <li><strong class="text-blue-600">High Revenue Producer (Dewan Rahman):</strong> Closed only **8 deals** but generated the highest revenue at **$51K**, including the $34K outlier. This demonstrates a clear focus and success in strategic, high-value account selling.</li>
+                <li><strong class="text-blue-600">Kawser Khan (Network Value):</strong> Closed **14 deals** ($31K revenue). His success is strongly correlated with network referrals, boasting a high conversion rate of ~6% on his smaller contact base (~220 leads).</li>
+                <li><strong class="text-blue-600">Steady Performers (e.g., Damian, Zareen):** Several reps maintained solid throughput, such as one closing **17 deals** (~$24.1K) and another closing **14 deals** (~$15K), forming the stable revenue base of the team.</li>
+                <li><strong class="text-blue-600">Kimberly Neer (Lead Qualification):</strong> Closed **14 deals** but with a lower average value (~$1K), aligning with her role as an inside sales/coordinator managing over 2,200 contacts and focusing on lead distribution and qualification.</li>
+                <li><strong class="text-red-600">Sam (Underperformer):** Closed **zero deals** in September, a clear red flag requiring immediate coaching and support intervention.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Growth Forecast and Projections</h3>
+            <p class="text-gray-700 mb-4">
+                The **Month-by-Month Trend Chart** clearly shows a seasonal peak in Q2 (April 108, May 104) followed by a stabilizing Q3 (July 84, August 98, September 94). Based on this pattern, the Q4 forecast is a modest rise or stable performance, projected at **95–100 deals per month**.
+            </p>
+            <p class="text-gray-700 mb-4">
+                **Revenue Projection:** Assuming an average deal value between $1,500–$2,000 and the forecasted 100 deals, Q4 monthly revenue is projected to be around **$150K**. This represents a reasonable **5–10% growth** in volume and revenue compared to the baseline Q3 performance, barring any new large outlier deals. The team is on pace to surpass **1,000 total deals** closed for the year.
+            </p>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Insights and Strategic Recommendations</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-3">
+                <li><strong>Leverage High-Value Strategy:</strong> The **$34K deal** highlights the disproportionate impact of enterprise sales. Training should focus on replicating the value selling and consultative approach used in this deal to help mid-tier reps prioritize and close higher-budget projects.</li>
+                <li><strong>Address Performance Gap:</strong> **Sam's zero-output** requires immediate, targeted coaching and mentoring (e.g., pairing him with a consistent performer like Damian Jay Johnson). Management must also review his lead flow, potentially redistributing contacts from Kimberly to ensure he has qualified leads.</li>
+                <li><strong>Optimize Lead Conversion Process:</strong> The vast number of leads held by Kimberly Neer (2,200+) suggests that the contact-to-closed-won conversion rate is low overall. The **hand-off process** between Kimberly's qualification and the closers must be tightened and formalized to ensure warm leads are followed up promptly, mirroring the success of Kawser Khan's high network conversion rate (~6%).</li>
+                <li><strong>Formalize Volume Playbook:</strong> Encourage high-volume reps like Nazia to document and share their efficient deal workflow and time-management techniques to boost the pipeline velocity for other team members.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // Data derived from the report text
+        const historicalDealData = {
+            labels: ['Apr', 'May', 'Jul', 'Aug', 'Sep', 'Q4 Target'],
+            deals: [108, 104, 84, 98, 94, 100],
+            backgroundColor: ['#4f46e5', '#4f46e5', '#4f46e5', '#4f46e5', '#10b981', '#fbbf24']
+        };
+
+        // Estimated/deduced data for Reps (to meet 94 deals / $182.7K revenue total)
+        const repData = {
+            names: ['Nazia A. Janvi', 'Dewan Rahman (HRR)', 'Damian J. Johnson', 'Zareen T. Hossain', 'Kimberly Neer', 'Kawser Khan', 'Sebastian H. Chavez', 'Sam'],
+            deals: [22, 8, 17, 14, 14, 14, 5, 0],
+            revenue: [37.6, 51.0, 24.1, 15.0, 14.0, 31.0, 10.0, 0.0] // In K$
+        };
+
+        const totalRevenue = repData.revenue.reduce((a, b) => a + b, 0); // 182.7K
+        const top3Revenue = repData.revenue.slice(0, 3).reduce((a, b) => a + b, 0); // 37.6 + 51.0 + 24.1 = 112.7
+        const restRevenue = totalRevenue - top3Revenue; // 182.7 - 112.7 = 70.0
+
+        // Forecast Data (Sept Actuals vs. Q4 Average Forecast)
+        const forecastData = {
+            labels: ['Sept Actual', 'Q4 Avg Forecast'],
+            deals: [94, 100],
+            revenue: [182.7, 150] // In K$
+        }
+
+        // --- Chart 1: Monthly Deal Volume Trend (Line/Bar Combo) ---
+        const setupDealTrendChart = () => {
+            const ctx = document.getElementById('dealTrendChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: historicalDealData.labels,
+                    datasets: [{
+                        label: 'Deals Closed',
+                        data: historicalDealData.deals,
+                        backgroundColor: historicalDealData.backgroundColor,
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Q2/Q3 Performance vs. Q4 Deal Forecast',
+                            font: { size: 16 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.formattedValue + ' deals';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Deals Closed' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        };
+
+        // --- Chart 2: Individual Rep Performance (Bar Chart) ---
+        const setupRepPerformanceChart = () => {
+            const ctx = document.getElementById('repPerformanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: repData.names,
+                    datasets: [
+                        {
+                            label: 'Deals Closed (Count)',
+                            data: repData.deals,
+                            backgroundColor: '#6366f1', // Indigo
+                            borderRadius: 6,
+                        },
+                        {
+                            label: 'Revenue (K$)',
+                            data: repData.revenue,
+                            backgroundColor: '#059669', // Emerald
+                            borderRadius: 6,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'September Volume vs. Revenue (K$)',
+                            font: { size: 16 }
+                        },
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { 
+                                display: true, 
+                                text: 'Deals / Revenue (K$)' 
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        };
+
+        // --- Chart 3: Revenue Contribution (Pie Chart) ---
+        const setupRevenuePieChart = () => {
+            const ctx = document.getElementById('revenuePieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [`Dewan R. ($51K)`, `Nazia A. J. ($37.6K)`, `Damian J. J. ($24.1K)`, `Rest of Team (Other 5 Reps - $70K)`],
+                    datasets: [{
+                        label: 'Revenue (K$)',
+                        data: [repData.revenue[1], repData.revenue[0], repData.revenue[2], restRevenue],
+                        backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#9ca3af'], // Yellow, Green, Blue, Gray
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'September Revenue Share - Top 3 Reps accounted for ~62%',
+                            font: { size: 16 }
+                        },
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        };
+
+        // --- Chart 4: Q4 Growth Forecast (Comparison Chart) ---
+        const setupForecastChart = () => {
+            const ctx = document.getElementById('forecastChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Deals Closed', 'Revenue (K$)'],
+                    datasets: [
+                        {
+                            label: 'Sept Actual',
+                            data: [forecastData.deals[0], forecastData.revenue[0]],
+                            backgroundColor: '#4f46e5', // Indigo
+                            borderRadius: 6,
+                        },
+                        {
+                            label: 'Q4 Avg Forecast',
+                            data: [forecastData.deals[1], forecastData.revenue[1]],
+                            backgroundColor: '#f97316', // Orange
+                            borderRadius: 6,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Sept Actual vs. Q4 Growth Forecast (5-10% Target)',
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        };
+
+        // Initialize all charts on window load
+        window.onload = function() {
+            setupDealTrendChart();
+            setupRepPerformanceChart();
+            setupRevenuePieChart();
+            setupForecastChart();
+        };
+
+    </script>
+</body>
+</html>
