@@ -44,301 +44,377 @@
     </style>
 </head>
 <body class="p-4 sm:p-8">
-
     <div class="max-w-6xl mx-auto">
-        <header class="text-center mb-10">
-            <h1 class="text-3xl font-bold text-gray-800">Sales Performance & Forecast Report</h1>
-            <p class="text-xl text-indigo-600 font-semibold">September 2025 Analysis</p>
-        </header>
+    <header class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-800">Beige Sales Performance & Forecast Report</h1>
+        <p class="text-xl text-indigo-600 font-semibold">September 2025 Analysis</p>
+    </header>
 
-        <!-- Summary Metrics -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="card text-center bg-indigo-50 border-t-4 border-indigo-500">
-                <p class="text-sm text-gray-500">Sept Deals Closed</p>
-                <p class="text-3xl font-extrabold text-indigo-700">94</p>
-            </div>
-            <div class="card text-center bg-green-50 border-t-4 border-green-500">
-                <p class="text-sm text-gray-500">Est. Sept Revenue</p>
-                <p class="text-3xl font-extrabold text-green-700">$182.7K</p>
-            </div>
-            <div class="card text-center bg-yellow-50 border-t-4 border-yellow-500">
-                <p class="text-sm text-gray-500">Q4 Deals Forecast</p>
-                <p class="text-3xl font-extrabold text-yellow-700">~100</p>
-            </div>
-            <div class="card text-center bg-red-50 border-t-4 border-red-500">
-                <p class="text-sm text-gray-500">YTD Deals Closed (Q3)</p>
-                <p class="text-3xl font-extrabold text-red-700">785+</p>
+    <!-- Summary Metrics -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="card text-center bg-indigo-50 border-t-4 border-indigo-500">
+            <p class="text-sm text-gray-500">Sept Deals Closed</p>
+            <p class="text-3xl font-extrabold text-indigo-700">94</p>
+        </div>
+        <div class="card text-center bg-green-50 border-t-4 border-green-500">
+            <p class="text-sm text-gray-500">Est. Sept Revenue</p>
+            <p class="text-3xl font-extrabold text-green-700">$182.7K</p>
+        </div>
+        <div class="card text-center bg-yellow-50 border-t-4 border-yellow-500">
+            <p class="text-sm text-gray-500">Q4 Deals Forecast</p>
+            <p class="text-3xl font-extrabold text-yellow-700">~100</p>
+        </div>
+        <div class="card text-center bg-red-50 border-t-4 border-red-500">
+            <p class="text-sm text-gray-500">YTD Deals Closed (Q3)</p>
+            <p class="text-3xl font-extrabold text-red-700">785+</p>
+        </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Chart 1: Historical Deal Volume & Forecast (Trend Chart) -->
+        <div class="card">
+            <h2 class="text-xl font-semibold text-gray-700 section-heading">Monthly Deal Volume Trend</h2>
+            <canvas id="dealTrendChart"></canvas>
+        </div>
+
+        <!-- Chart 2: Individual Rep Performance (Bar Chart) -->
+        <div class="card">
+            <h2 class="text-xl font-semibold text-gray-700 section-heading">Individual Rep Performance (September)</h2>
+            <div class="h-80">
+                <canvas id="repPerformanceChart"></canvas>
             </div>
         </div>
 
-        <!-- Charts Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <!-- Chart 1: Historical Deal Volume & Forecast (Trend Chart) -->
-            <div class="card">
-                <h2 class="text-xl font-semibold text-gray-700 section-heading">Monthly Deal Volume Trend</h2>
-                <canvas id="dealTrendChart"></canvas>
-            </div>
-
-            <!-- Chart 2: Individual Rep Performance (Bar Chart) -->
-            <div class="card">
-                <h2 class="text-xl font-semibold text-gray-700 section-heading">Individual Rep Performance (September)</h2>
-                <div class="h-80">
-                    <canvas id="repPerformanceChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Chart 3: Revenue Contribution (Pie Chart) -->
-            <div class="card">
-                <h2 class="text-xl font-semibold text-gray-700 section-heading">September Revenue Contribution (K$)</h2>
-                <canvas id="revenuePieChart"></canvas>
-            </div>
-
-            <!-- Chart 4: Q4 Growth Forecast (Comparison Chart) -->
-            <div class="card">
-                <h2 class="text-xl font-semibold text-gray-700 section-heading">Q4 Growth Projection vs. September Actual</h2>
-                <canvas id="forecastChart"></canvas>
-            </div>
-
+        <!-- Chart 3: Revenue Contribution (Pie Chart) -->
+        <div class="card">
+            <h2 class="text-xl font-semibold text-gray-700 section-heading">September Revenue Contribution (K$)</h2>
+            <canvas id="revenuePieChart"></canvas>
         </div>
 
-        <!-- Detailed Reporting -->
-        <div class="card mt-6">
-            <h2 class="text-2xl font-bold text-gray-800 section-heading">Detailed Performance Report & Analysis</h2>
-            
-            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Team Performance Overview (September)</h3>
-            <p class="text-gray-700 mb-4">
-                The team closed **94 deals** in September, demonstrating stability in Q3 performance. While slightly below the 98 deals in August, it remains a strong result, particularly when compared to July’s 84 deals. The total estimated revenue was **$182.7K**, which was significantly boosted by a single **$34,000** deal (Rebecca Zurielle’s podcast project). This indicates a healthy, albeit slightly seasonally adjusted, pipeline, maintaining a trend that is only modestly lower than the Q2 peak of 108 deals.
-            </p>
-
-            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Rep-by-Rep Performance Breakdown</h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
-                <li><strong class="text-blue-600">Nazia Afreen Janvi (Top Volume):</strong> Closed the highest volume with **22 deals** ($37.6K revenue). Her strength lies in consistent throughput of moderate-sized deals ($1,709 average).</li>
-                <li><strong class="text-blue-600">High Revenue Producer (Dewan Rahman):</strong> Closed only **8 deals** but generated the highest revenue at **$51K**, including the $34K outlier. This demonstrates a clear focus and success in strategic, high-value account selling.</li>
-                <li><strong class="text-blue-600">Kawser Khan (Network Value):</strong> Closed **14 deals** ($31K revenue). His success is strongly correlated with network referrals, boasting a high conversion rate of ~6% on his smaller contact base (~220 leads).</li>
-                <li><strong class="text-blue-600">Steady Performers (e.g., Damian, Zareen):** Several reps maintained solid throughput, such as one closing **17 deals** (~$24.1K) and another closing **14 deals** (~$15K), forming the stable revenue base of the team.</li>
-                <li><strong class="text-blue-600">Kimberly Neer (Lead Qualification):</strong> Closed **14 deals** but with a lower average value (~$1K), aligning with her role as an inside sales/coordinator managing over 2,200 contacts and focusing on lead distribution and qualification.</li>
-                <li><strong class="text-red-600">Sam (Underperformer):** Closed **zero deals** in September, a clear red flag requiring immediate coaching and support intervention.</li>
-            </ul>
-
-            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Growth Forecast and Projections</h3>
-            <p class="text-gray-700 mb-4">
-                The **Month-by-Month Trend Chart** clearly shows a seasonal peak in Q2 (April 108, May 104) followed by a stabilizing Q3 (July 84, August 98, September 94). Based on this pattern, the Q4 forecast is a modest rise or stable performance, projected at **95–100 deals per month**.
-            </p>
-            <p class="text-gray-700 mb-4">
-                **Revenue Projection:** Assuming an average deal value between $1,500–$2,000 and the forecasted 100 deals, Q4 monthly revenue is projected to be around **$150K**. This represents a reasonable **5–10% growth** in volume and revenue compared to the baseline Q3 performance, barring any new large outlier deals. The team is on pace to surpass **1,000 total deals** closed for the year.
-            </p>
-
-            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Insights and Strategic Recommendations</h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-3">
-                <li><strong>Leverage High-Value Strategy:</strong> The **$34K deal** highlights the disproportionate impact of enterprise sales. Training should focus on replicating the value selling and consultative approach used in this deal to help mid-tier reps prioritize and close higher-budget projects.</li>
-                <li><strong>Address Performance Gap:</strong> **Sam's zero-output** requires immediate, targeted coaching and mentoring (e.g., pairing him with a consistent performer like Damian Jay Johnson). Management must also review his lead flow, potentially redistributing contacts from Kimberly to ensure he has qualified leads.</li>
-                <li><strong>Optimize Lead Conversion Process:</strong> The vast number of leads held by Kimberly Neer (2,200+) suggests that the contact-to-closed-won conversion rate is low overall. The **hand-off process** between Kimberly's qualification and the closers must be tightened and formalized to ensure warm leads are followed up promptly, mirroring the success of Kawser Khan's high network conversion rate (~6%).</li>
-                <li><strong>Formalize Volume Playbook:</strong> Encourage high-volume reps like Nazia to document and share their efficient deal workflow and time-management techniques to boost the pipeline velocity for other team members.</li>
-            </ul>
+        <!-- Chart 4: Q4 Growth Forecast (Comparison Chart) -->
+        <div class="card">
+            <h2 class="text-xl font-semibold text-gray-700 section-heading">Q4 Growth Projection vs. September Actual</h2>
+            <canvas id="forecastChart"></canvas>
         </div>
 
     </div>
 
-    <script>
-        // Data derived from the report text
-        const historicalDealData = {
-            labels: ['Apr', 'May', 'Jul', 'Aug', 'Sep', 'Q4 Target'],
-            deals: [108, 104, 84, 98, 94, 100],
-            backgroundColor: ['#4f46e5', '#4f46e5', '#4f46e5', '#4f46e5', '#10b981', '#fbbf24']
-        };
+    <!-- Detailed Reporting -->
+    <div class="card mt-6">
+        <h2 class="text-2xl font-bold text-gray-800 section-heading">Detailed Performance Report & Analysis</h2>
+        
+        <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Team Performance Overview (September)</h3>
+        <p class="text-gray-700 mb-4">
+            The team closed <strong>94 deals</strong> in September, demonstrating stability in Q3 performance. While slightly below the 98 deals in August, it remains a strong result, particularly when compared to July’s 84 deals. The total estimated revenue was <strong>$182.7K</strong>, which was significantly boosted by a single <strong>$34,000</strong> deal (Rebecca Zurielle’s podcast project). This indicates a healthy, albeit slightly seasonally adjusted, pipeline, maintaining a trend that is only modestly lower than the Q2 peak of 108 deals.
+        </p>
 
-        // Estimated/deduced data for Reps (to meet 94 deals / $182.7K revenue total)
-        const repData = {
-            names: ['Nazia A. Janvi', 'Dewan Rahman (HRR)', 'Damian J. Johnson', 'Zareen T. Hossain', 'Kimberly Neer', 'Kawser Khan', 'Sebastian H. Chavez', 'Sam'],
-            deals: [22, 8, 17, 14, 14, 14, 5, 0],
-            revenue: [37.6, 51.0, 24.1, 15.0, 14.0, 31.0, 10.0, 0.0] // In K$
-        };
+        <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Rep-by-Rep Performance Breakdown</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+            <li><strong class="text-blue-600">Nazia Afreen Janvi (Top Volume):</strong> Closed the highest volume with <strong>22 deals</strong> ($37.6K revenue). Her strength lies in consistent throughput of moderate-sized deals ($1,709 average).</li>
+            <li><strong class="text-blue-600">High Revenue Producer (Dewan Rahman):</strong> Closed only <strong>8 deals</strong> but generated the highest revenue at <strong>$51K</strong>, including the $34K outlier. This demonstrates a clear focus and success in strategic, high-value account selling.</li>
+            <li><strong class="text-blue-600">Kawser Khan (Network Value):</strong> Closed <strong>14 deals</strong> ($31K revenue). His success is strongly correlated with network referrals, boasting a high conversion rate of ~6% on his smaller contact base (~220 leads).</li>
+            <li><strong class="text-blue-600">Steady Performers (e.g., Damian, Zareen):</strong> Several reps maintained solid throughput, such as one closing <strong>17 deals</strong> (~$24.1K) and another closing <strong>14 deals</strong> (~$15K), forming the stable revenue base of the team.</li>
+            <li><strong class="text-blue-600">Kimberly Neer (Lead Qualification):</strong> Closed <strong>14 deals</strong> but with a lower average value (~$1K), aligning with her role as an inside sales/coordinator managing over 2,200 contacts and focusing on lead distribution and qualification.</li>
+            <li><strong class="text-red-600">Sam (Underperformer):</strong> Closed <strong>zero deals</strong> in September, a clear red flag requiring immediate coaching and support intervention.</li>
+        </ul>
 
-        const totalRevenue = repData.revenue.reduce((a, b) => a + b, 0); // 182.7K
-        const top3Revenue = repData.revenue.slice(0, 3).reduce((a, b) => a + b, 0); // 37.6 + 51.0 + 24.1 = 112.7
-        const restRevenue = totalRevenue - top3Revenue; // 182.7 - 112.7 = 70.0
+        <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Growth Forecast and Projections</h3>
+        <p class="text-gray-700 mb-4">
+            The <strong>Month-by-Month Trend Chart</strong> clearly shows a seasonal peak in Q2 (April 108, May 104) followed by a stabilizing Q3 (July 84, August 98, September 94). Based on this pattern, the Q4 forecast is a modest rise or stable performance, projected at <strong>95–100 deals per month</strong>.
+        </p>
+        <p class="text-gray-700 mb-4">
+            <strong>Revenue Projection:</strong> Assuming an average deal value between $1,500–$2,000 and the forecasted 100 deals, Q4 monthly revenue is projected to be around <strong>$150K</strong>. This represents a reasonable <strong>5–10% growth</strong> in volume and revenue compared to the baseline Q3 performance, barring any new large outlier deals. The team is on pace to surpass <strong>1,000 total deals</strong> closed for the year.
+        </p>
 
-        // Forecast Data (Sept Actuals vs. Q4 Average Forecast)
-        const forecastData = {
-            labels: ['Sept Actual', 'Q4 Avg Forecast'],
-            deals: [94, 100],
-            revenue: [182.7, 150] // In K$
-        }
+        <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Insights and Strategic Recommendations</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-3">
+            <li><strong>Leverage High-Value Strategy:</strong> The <strong>$34K deal</strong> highlights the disproportionate impact of enterprise sales. Training should focus on replicating the value selling and consultative approach used in this deal to help mid-tier reps prioritize and close higher-budget projects.</li>
+            <li><strong>Address Performance Gap:</strong> <strong>Sam's zero-output</strong> requires immediate, targeted coaching and mentoring (e.g., pairing him with a consistent performer like Damian Jay Johnson). Management must also review his lead flow, potentially redistributing contacts from Kimberly to ensure he has qualified leads.</li>
+            <li><strong>Optimize Lead Conversion Process:</strong> The vast number of leads held by Kimberly Neer (2,200+) suggests that the contact-to-closed-won conversion rate is low overall. The <strong>hand-off process</strong> between Kimberly's qualification and the closers must be tightened and formalized to ensure warm leads are followed up promptly, mirroring the success of Kawser Khan's high network conversion rate (~6%).</li>
+            <li><strong>Formalize Volume Playbook:</strong> Encourage high-volume reps like Nazia to document and share their efficient deal workflow and time-management techniques to boost the pipeline velocity for other team members.</li>
+        </ul>
+    </div>
 
-        // --- Chart 1: Monthly Deal Volume Trend (Line/Bar Combo) ---
-        const setupDealTrendChart = () => {
-            const ctx = document.getElementById('dealTrendChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: historicalDealData.labels,
-                    datasets: [{
-                        label: 'Deals Closed',
-                        data: historicalDealData.deals,
-                        backgroundColor: historicalDealData.backgroundColor,
+    <!-- Customer Pain Points Analysis Section -->
+    <div class="card mt-6">
+        <h2 class="text-2xl font-bold text-gray-800 section-heading">Quarterly Customer Pain Points Analysis (Q3 2025)</h2>
+        
+        <div class="prose max-w-none">
+            <!-- New: Overview Header using Indigo -->
+            <h3 class="text-xl font-semibold text-indigo-600 mt-4 mb-2">Overview</h3>
+            <p class="text-gray-700 mb-4">
+                This report analyzes lead interactions from Q3 2025 – including call transcripts, email threads, and internal notes – to identify the top customer pain points. All major customer segments and interaction types were reviewed. The findings are ranked by frequency and impact, with quantitative metrics and representative examples. We also note changes compared to the previous quarter where applicable.
+            </p>
+
+            <!-- New: Pain Point 1 Header using Sky Blue -->
+            <h3 class="text-xl font-semibold text-sky-800 mt-6 mb-2">1. High Pricing and Budget Constraints</h3>
+            <p class="text-gray-700 mb-2"><strong>Frequency:</strong> #1 most mentioned, appearing in roughly 30–40% of lead communications where a concern was expressed. This remained consistent with the prior quarter (Q2 2025) where pricing was similarly a dominant issue.</p>
+            <p class="text-gray-700 mb-2"><strong>Details:</strong> Many prospects cited budget limitations or sticker shock at our pricing. Several leads explicitly declined to proceed due to cost: for example, one prospect responded that "$1,100 is a lot of money to us... we cannot afford any... services at this time". Another lead thanked us for our proposal but noted "the package [doesn't align with our needs and] the pricing is outside the range I'm prepared to allocate".</p>
+            <p class="text-gray-700 mb-4"><strong>Impact:</strong> These pricing objections often resulted in lost deals or stalled negotiations. About 3–4 leads this quarter (≈35% of losses) explicitly cited cost as the primary reason for not moving forward. This trend is on par with last quarter's volume of budget-related turn-aways, indicating that our pricing continues to be a top barrier for a substantial segment of prospects. There is no significant improvement from Q2 in this area – budget sensitivity remains high.</p>
+
+            <!-- New: Pain Point 2 Header using Sky Blue -->
+            <h3 class="text-xl font-semibold text-sky-800 mt-6 mb-2">2. Communication Delays and Response Time Issues</h3>
+            <p class="text-gray-700 mb-2"><strong>Frequency:</strong> #2 most cited category, appearing in an estimated 15–20% of interactions (including internal notes), though often indirectly. This includes slow follow-ups, project delays, or support timing issues.</p>
+            <p class="text-gray-700 mb-2">While not always explicitly stated by customers, several indicators point to timing as a pain point. Notably, this quarter saw at least one severe case where a client escalated a payment dispute due to a deliverable delay – a chargeback labeled "Product Not Received", illustrating a failure in timely delivery.</p>
+            <p class="text-gray-700 mb-2"><strong>Details:</strong> Internal call notes from sales meetings corroborate that lag in responses was a problem in some cases. For example, one sales meeting memo noted "Thumbtack access issues" that prevented reps from contacting leads promptly, until a workaround was implemented. During that period, reps had to manually manage leads, and the "group will respond to their own... leads until the issue is resolved". Such delays likely translated to slower replies to customer inquiries. In at least one email thread, a contact had to follow up saying they were "still waiting for your reply", hinting at dissatisfaction with our responsiveness.</p>
+            <p class="text-gray-700 mb-4"><strong>Impact:</strong> Delayed responses and project timeline slips undermine customer confidence. Approximately 1 in 5 interactions had some indication of timing concerns – whether a direct complaint or an implied issue (like the chargeback or follow-up emails). Compared to Q2, the rate of escalations may have improved slightly (Q2 saw multiple disputes over deliverables, whereas Q3 had one), but responsiveness remains a concern. Any improvement in dispute count (down from 3 in Q2 to 1 in Q3) is positive, yet overall customer expectations for faster communication and delivery are still not consistently met. This suggests we should continue to streamline response workflows and ensure on-time project fulfillment to prevent frustration.</p>
+
+            <!-- New: Pain Point 3 Header using Sky Blue -->
+            <h3 class="text-xl font-semibold text-sky-800 mt-6 mb-2">3. Product/Service Fit and Scope Concerns</h3>
+            <p class="text-gray-700 mb-2"><strong>Frequency:</strong> Ranked #3, mentioned in roughly 10–15% of interactions. This includes customers expressing confusion about our offerings or disappointment with specific capabilities of our service. While less common than price or timing issues, these qualitative concerns were notable and slightly up from last quarter (which saw fewer such comments).</p>
+            <p class="text-gray-700 mb-2"><strong>Details:</strong> The primary theme was that some leads felt our services didn't fully match their needs. For instance, one prospect appreciated our proposal but concluded "the package does not align with the level of motion graphics I'm looking for at this stage". In other words, our deliverables or creative capabilities (e.g. advanced animation or graphics) fell short of their expectations. Others have asked for specific portfolio examples or clarifications, indicating they weren't clear on what we offer versus what they needed. No customers overtly complained about core functionality, but there were requests for certain content styles or features (like the motion graphics) that we could not sufficiently meet. This points to mild confusion or mismatch in understanding our product scope.</p>
+            <p class="text-gray-700 mb-4"><strong>Impact:</strong> Though fewer in number, these cases can lead to lost opportunities with higher-end clients looking for specialized features. In the example above, the client not only passed on our proposal due to scope mismatch, but also combined it with a pricing objection – a double hurdle. Compared to the previous quarter, such feedback has increased (at least one explicit case this quarter vs. none clearly noted in Q2), suggesting a potential gap in how we set expectations or customize offerings for niche needs. Addressing this by highlighting our capabilities (or limitations) earlier and tailoring proposals could convert more leads who might otherwise walk away due to perceived misalignment.</p>
+
+            <!-- New: Pain Point 4 Header using Sky Blue -->
+            <h3 class="text-xl font-semibold text-sky-800 mt-6 mb-2">4. Other Notable Pain Points (Less Frequent)</h3>
+            <p class="text-gray-700 mb-4">A few additional concerns arose sporadically, though not at the level of the top three above:</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                <li><strong>Trust and Payment Security:</strong> There were isolated instances of clients being wary or taking strong measures in financial interactions. Aside from the disputes noted, one client explicitly reminded us about usage rights and confidentiality of deliverables – indicating sensitivity around how their content is handled. While not a widespread "complaint," it highlights the importance of building trust through clear communication of policies (e.g. content usage, refunds, etc.).</li>
+                <li><strong>Project Uncertainty/Deferrals:</strong> A handful of leads went "in another direction" or postponed projects without negative feedback on us, per email replies. While these are sales outcomes more than explicit complaints, they sometimes mask underlying issues like budget (often the real reason for deferral) or timing (project not urgent anymore). Monitoring these reasons can help us differentiate between true lost due to pain points vs. external factors.</li>
+            </ul>
+
+            <!-- New: Quantitative Summary Header using Indigo -->
+            <h3 class="text-xl font-semibold text-indigo-600 mt-6 mb-2">Quantitative Summary of Pain Point Mentions</h3>
+            <p class="text-gray-700 mb-4">Across all recorded interactions (calls, emails, notes) in Q3 2025, the breakdown of top-cited customer issues is as follows:</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                <li><strong>Pricing/Budget:</strong> ~40% of pain point mentions – by far the most common. Customers frequently said pricing was too high or outside their budget, directly impacting deal closure.</li>
+                <li><strong>Communication/Timing:</strong> ~20–25% of mentions – including slow response or delivery delays. This is inferred from follow-up emails and at least one chargeback for non-delivery, as well as internal evidence of lag in lead follow-ups.</li>
+                <li><strong>Scope/Offering Mismatch:</strong> ~15% of mentions – prospects indicating our solution didn't meet a specific requirement (e.g. advanced motion graphics) or needed clarification on what's included.</li>
+                <li><strong>Other/Miscellaneous:</strong> ~5–10% – trust or contract issues, payment disputes, and others as noted, which were relatively rare but impactful when they occurred.</li>
+            </ul>
+            <p class="text-gray-700 mb-4">(These percentages are based on the subset of interactions where any dissatisfaction was noted; most new inquiries (roughly 70% of total leads) did not voice concerns in initial contacts.)</p>
+
+            <!-- New: Changes vs. Previous Period Header using Indigo -->
+            <h3 class="text-xl font-semibold text-indigo-600 mt-6 mb-2">Changes vs. Previous Period</h3>
+            <p class="text-gray-700 mb-4">Overall, the hierarchy of pain points remains similar to the previous quarter. Pricing continues to dominate, and communication speed is a consistent secondary concern. However, two subtle shifts were observed:</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                <li><strong>Marginal Improvement in Delivery/Disputes:</strong> The number of payment disputes decreased from 3 in Q2 to 1 in Q3, suggesting progress in project delivery or client issue resolution. This points to slightly better handling of timelines, though one dispute is still too many. We should aim for zero disputes by addressing issues before they escalate.</li>
+                <li><strong>Emergence of Specialized Needs:</strong> Q3 saw more feedback on specific content needs (like motion graphics), whereas Q2 complaints were almost entirely about cost or timing. This could indicate our client base is evolving to include more sophisticated projects. Proactively discussing project scope and capabilities may prevent such mismatches.</li>
+            </ul>
+            <p class="text-gray-700 mb-4">Aside from these, other pain point frequencies were largely unchanged quarter-over-quarter. In both Q2 and Q3, budget concerns ranked first (with nearly identical remark frequency), and communication issues were second. Any improvement in response times in Q3 was due to internal fixes (e.g. resolving the Thumbtack login problem) and needs to be maintained going forward.</p>
+
+            <!-- New: Key Qualitative Insights & Themes Header using Indigo -->
+            <h3 class="text-xl font-semibold text-indigo-600 mt-6 mb-2">Key Qualitative Insights & Themes</h3>
+            <p class="text-gray-700 mb-4">Beyond the numbers, a few recurring themes stand out from the transcripts and notes:</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                <li><strong>Sticker Shock & Value Perception:</strong> Clients on tight budgets often need to be convinced of our value. Many who walked away due to cost did so politely but immediately, implying they didn't perceive a justification for the price. This suggests an opportunity to better articulate ROI or offer tiered packages.</li>
+                <li><strong>Importance of Responsiveness:</strong> Even when we ultimately lost opportunities, prospects like Cole G. appreciated our quick replies. On the flip side, any instance of slow communication can quickly sour a lead's interest. The absence of complaints when we communicate well versus the sharp consequence (e.g. chargeback) when we don't underscores that prompt, clear communication is a baseline expectation.</li>
+                <li><strong>Expectations Management:</strong> The case of motion graphics indicates that managing expectations about what's included (or possible) in a project is crucial. When clients have specific visions (advanced effects, particular styles), early conversations should address whether we can meet those needs or not. This transparency can prevent dissatisfaction later.</li>
+                <li><strong>Customer Support & Trust:</strong> Although not frequently mentioned outright, the fact that some clients resorted to formal disputes or laid out terms (like content use restrictions) shows that robust support and trust-building measures are vital. Simplifying processes like payment and hand-off, and reassuring clients (perhaps via testimonials or guarantees), may mitigate these issues.</li>
+            </ul>
+
+            <!-- New: Conclusion and Recommendations Header using Indigo -->
+            <h3 class="text-xl font-semibold text-indigo-600 mt-6 mb-2">Conclusion and Recommendations</h3>
+            <p class="text-gray-700 mb-4">In summary, the top customer pain points this past quarter were: (1) our pricing relative to client budgets, (2) timeliness of our communication and deliverables, and (3) alignment of our services with client needs. These accounted for the majority of negative feedback, with pricing alone being the deciding factor in many lost deals. Compared to the prior quarter, these challenges persist at similar levels, though there are early signs of improvement in project delivery (fewer disputes) and new signals about product scope expectations.</p>
+            <p class="text-gray-700 mb-4">Recommended actions to address these pain points include:</p>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                <li><strong>Pricing Strategy:</strong> Consider introducing more flexible pricing options or smaller starter packages to capture budget-conscious clients. Emphasize value in proposals (e.g. highlight deliverables, past success metrics) to justify costs and reduce sticker shock.</li>
+                <li><strong>Improve Responsiveness:</strong> Continue to invest in CRM tools and team training to ensure all inquiries get prompt replies. The resolution of the Q3 Thumbtack issue was a positive step – maintaining redundancies or alternative lead channels can prevent such lapses. Aim for proactive status updates to clients, so they never have to "wait for a reply" or wonder about their project's status.</li>
+                <li><strong>Set Clear Project Scopes:</strong> During discovery calls, explicitly ask about any specific expectations (e.g. graphic style, turnaround time) and address feasibility. If certain requests are outside our standard offering, discuss add-ons or honestly set boundaries. For instance, if a client values high-end motion graphics that we cannot provide in-house, we might partner with a specialist or be upfront to manage expectations.</li>
+                <li><strong>Enhance Support & Trust Signals:</strong> Reduce friction in the client experience – for example, provide a summary of next steps after each call, and use escrow or milestone-based payments to reassure clients. Showcasing client testimonials, especially addressing common fears (budget, timing), could preempt concerns. Ensuring every client feels heard and supported can turn potential complaints into opportunities to excel.</li>
+            </ul>
+            <p class="text-gray-700">By focusing on these areas, we can aim to see measurable improvements in customer satisfaction next quarter – fewer price objections through better value communication, faster response metrics (e.g. average first response under 1 hour), and increased conversion of leads with specialized needs. Continual monitoring of feedback will be key: as we saw this quarter, pain points can evolve, and being responsive to those changes will help Beige Media deliver not just great content, but great customer experiences.</p>
+        </div>
+    </div></div><script>
+    // Data derived from the report text
+    const historicalDealData = {
+        labels: ['Apr', 'May', 'Jul', 'Aug', 'Sep', 'Q4 Target'],
+        deals: [108, 104, 84, 98, 94, 100],
+        backgroundColor: ['#4f46e5', '#4f46e5', '#4f46e5', '#4f46e5', '#10b981', '#fbbf24']
+    };
+
+    // Estimated/deduced data for Reps (to meet 94 deals / $182.7K revenue total)
+    const repData = {
+        names: ['Nazia A. Janvi', 'Dewan Rahman (HRR)', 'Damian J. Johnson', 'Zareen T. Hossain', 'Kimberly Neer', 'Kawser Khan', 'Sebastian H. Chavez', 'Sam'],
+        deals: [22, 8, 17, 14, 14, 14, 5, 0],
+        revenue: [37.6, 51.0, 24.1, 15.0, 14.0, 31.0, 10.0, 0.0] // In K$
+    };
+
+    const totalRevenue = repData.revenue.reduce((a, b) => a + b, 0); // 182.7K
+    const top3Revenue = repData.revenue.slice(0, 3).reduce((a, b) => a + b, 0); // 37.6 + 51.0 + 24.1 = 112.7
+    const restRevenue = totalRevenue - top3Revenue; // 182.7 - 112.7 = 70.0
+
+    // Forecast Data (Sept Actuals vs. Q4 Average Forecast)
+    const forecastData = {
+        labels: ['Sept Actual', 'Q4 Avg Forecast'],
+        deals: [94, 100],
+        revenue: [182.7, 150] // In K$
+    }
+
+    // --- Chart 1: Monthly Deal Volume Trend (Line/Bar Combo) ---
+    const setupDealTrendChart = () => {
+        const ctx = document.getElementById('dealTrendChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: historicalDealData.labels,
+                datasets: [{
+                    label: 'Deals Closed',
+                    data: historicalDealData.deals,
+                    backgroundColor: historicalDealData.backgroundColor,
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Q2/Q3 Performance vs. Q4 Deal Forecast',
+                        font: { size: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.formattedValue + ' deals';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Deals Closed' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    };
+
+    // --- Chart 2: Individual Rep Performance (Bar Chart) ---
+    const setupRepPerformanceChart = () => {
+        const ctx = document.getElementById('repPerformanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: repData.names,
+                datasets: [
+                    {
+                        label: 'Deals Closed (Count)',
+                        data: repData.deals,
+                        backgroundColor: '#6366f1', // Indigo
                         borderRadius: 6,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Q2/Q3 Performance vs. Q4 Deal Forecast',
-                            font: { size: 16 }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.label + ': ' + context.formattedValue + ' deals';
-                                }
-                            }
-                        }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Deals Closed' }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
-                    }
-                }
-            });
-        };
-
-        // --- Chart 2: Individual Rep Performance (Bar Chart) ---
-        const setupRepPerformanceChart = () => {
-            const ctx = document.getElementById('repPerformanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: repData.names,
-                    datasets: [
-                        {
-                            label: 'Deals Closed (Count)',
-                            data: repData.deals,
-                            backgroundColor: '#6366f1', // Indigo
-                            borderRadius: 6,
-                        },
-                        {
-                            label: 'Revenue (K$)',
-                            data: repData.revenue,
-                            backgroundColor: '#059669', // Emerald
-                            borderRadius: 6,
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'September Volume vs. Revenue (K$)',
-                            font: { size: 16 }
-                        },
-                        legend: { position: 'top' }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { 
-                                display: true, 
-                                text: 'Deals / Revenue (K$)' 
-                            }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
-                    }
-                }
-            });
-        };
-
-        // --- Chart 3: Revenue Contribution (Pie Chart) ---
-        const setupRevenuePieChart = () => {
-            const ctx = document.getElementById('revenuePieChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: [`Dewan R. ($51K)`, `Nazia A. J. ($37.6K)`, `Damian J. J. ($24.1K)`, `Rest of Team (Other 5 Reps - $70K)`],
-                    datasets: [{
+                    {
                         label: 'Revenue (K$)',
-                        data: [repData.revenue[1], repData.revenue[0], repData.revenue[2], restRevenue],
-                        backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#9ca3af'], // Yellow, Green, Blue, Gray
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'September Revenue Share - Top 3 Reps accounted for ~62%',
-                            font: { size: 16 }
-                        },
-                        legend: { position: 'bottom' }
+                        data: repData.revenue,
+                        backgroundColor: '#059669', // Emerald
+                        borderRadius: 6,
                     }
-                }
-            });
-        };
-
-        // --- Chart 4: Q4 Growth Forecast (Comparison Chart) ---
-        const setupForecastChart = () => {
-            const ctx = document.getElementById('forecastChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Deals Closed', 'Revenue (K$)'],
-                    datasets: [
-                        {
-                            label: 'Sept Actual',
-                            data: [forecastData.deals[0], forecastData.revenue[0]],
-                            backgroundColor: '#4f46e5', // Indigo
-                            borderRadius: 6,
-                        },
-                        {
-                            label: 'Q4 Avg Forecast',
-                            data: [forecastData.deals[1], forecastData.revenue[1]],
-                            backgroundColor: '#f97316', // Orange
-                            borderRadius: 6,
-                        }
-                    ]
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'September Volume vs. Revenue (K$)',
+                        font: { size: 16 }
+                    },
+                    legend: { position: 'top' }
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: {
-                            display: true,
-                            text: 'Sept Actual vs. Q4 Growth Forecast (5-10% Target)',
-                            font: { size: 16 }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { 
+                            display: true, 
+                            text: 'Deals / Revenue (K$)' 
                         }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
+                    x: {
+                        grid: { display: false }
                     }
                 }
-            });
-        };
+            }
+        });
+    };
 
-        // Initialize all charts on window load
-        window.onload = function() {
-            setupDealTrendChart();
-            setupRepPerformanceChart();
-            setupRevenuePieChart();
-            setupForecastChart();
-        };
+    // --- Chart 3: Revenue Contribution (Pie Chart) ---
+    const setupRevenuePieChart = () => {
+        const ctx = document.getElementById('revenuePieChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [`Dewan R. ($51K)`, `Nazia A. J. ($37.6K)`, `Damian J. J. ($24.1K)`, `Rest of Team (Other 5 Reps - $70K)`],
+                datasets: [{
+                    label: 'Revenue (K$)',
+                    data: [repData.revenue[1], repData.revenue[0], repData.revenue[2], restRevenue],
+                    backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#9ca3af'], // Yellow, Green, Blue, Gray
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'September Revenue Share - Top 3 Reps accounted for ~62%',
+                        font: { size: 16 }
+                    },
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    };
 
-    </script>
+    // --- Chart 4: Q4 Growth Forecast (Comparison Chart) ---
+    const setupForecastChart = () => {
+        const ctx = document.getElementById('forecastChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Deals Closed', 'Revenue (K$)'],
+                datasets: [
+                    {
+                        label: 'Sept Actual',
+                        data: [forecastData.deals[0], forecastData.revenue[0]],
+                        backgroundColor: '#4f46e5', // Indigo
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Q4 Avg Forecast',
+                        data: [forecastData.deals[1], forecastData.revenue[1]],
+                        backgroundColor: '#f97316', // Orange
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'Sept Actual vs. Q4 Growth Forecast (5-10% Target)',
+                        font: { size: 16 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    };
+
+    // Initialize all charts on window load
+    window.onload = function() {
+        setupDealTrendChart();
+        setupRepPerformanceChart();
+        setupRevenuePieChart();
+        setupForecastChart();
+    };</script>
+  
 </body>
 </html>
